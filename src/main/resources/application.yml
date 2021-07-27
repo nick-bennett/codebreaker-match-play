@@ -7,6 +7,12 @@ server:
     context-path: /codebreaker
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          client-id: 87191538321-6eobd8gkfrgq34lbuo2ves8l6ia1e1nc.apps.googleusercontent.com
   jackson:
     deserialization:
       accept-float-as-int: false
