@@ -1,5 +1,8 @@
 package edu.cnm.deepdive.codebreaker.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -27,12 +30,14 @@ public class Guess {
       columnDefinition = "CHAR(16) FOR BIT DATA"
   )
   @NonNull
+  @JsonProperty(access = Access.READ_ONLY)
   private UUID id;
 
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   @NonNull
+  @JsonProperty(access = Access.READ_ONLY)
   private Date created;
 
   @Column(name = "guess_text", nullable = false, updatable = false)
@@ -40,18 +45,22 @@ public class Guess {
   private String text;
 
   @Column(nullable = false, updatable = false)
+  @JsonProperty(access = Access.READ_ONLY)
   private int exactMatches;
 
   @Column(nullable = false, updatable = false)
+  @JsonProperty(access = Access.READ_ONLY)
   private int nearMatches;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "code_id", nullable = false, updatable = false)
   @NonNull
+  @JsonIgnore
   private Code code;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  @JsonIgnore
   private User user;
 
   @NonNull
